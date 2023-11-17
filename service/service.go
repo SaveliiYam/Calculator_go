@@ -7,8 +7,8 @@ type Calculator interface {
 
 type Convertor interface {
 	CheckNumbers() (bool, error)
-	FromRome(string) (string, error)
-	FromArabian(string) (string, error)
+	FromRome(first string) (string, error)
+	FromArabian() (string, string, error)
 }
 
 type Service struct {

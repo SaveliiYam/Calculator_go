@@ -33,18 +33,18 @@ func (c *calculator) GetAnswer() (string, error) {
 	case "-":
 		f, _ := strconv.Atoi(c.first)
 		s, _ := strconv.Atoi(c.second)
-		return strconv.Itoa(f + s), nil
+		return strconv.Itoa(f - s), nil
 	case "*":
 		f, _ := strconv.Atoi(c.first)
 		s, _ := strconv.Atoi(c.second)
-		return strconv.Itoa(f + s), nil
+		return strconv.Itoa(f * s), nil
 	case "/":
 		f, _ := strconv.Atoi(c.first)
 		s, _ := strconv.Atoi(c.second)
 		if s == 0 {
 			return "", errors.New("try 0")
 		}
-		return strconv.Itoa(f + s), nil
+		return strconv.Itoa(f / s), nil
 	}
 	return "", errors.New("invalid operator")
 }

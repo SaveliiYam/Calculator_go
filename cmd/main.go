@@ -12,10 +12,10 @@ import (
 
 func main() {
 	query, _ := bufio.NewReader(os.Stdin).ReadString('\n')
-	//query := "1 + 111"
+	//query := "I + X"
 	sliceOperands := strings.Split(query, " ")
 	if len(sliceOperands) != 3 {
-		log.Panic("Input error")
+		log.Fatal("Input error")
 		return
 	}
 	sliceOperands[2] = strings.TrimSpace(sliceOperands[2])
@@ -24,17 +24,33 @@ func main() {
 
 	checkNumbers, err := service.Convertor.CheckNumbers()
 	if err != nil {
-		log.Panic(err)
+		log.Fatal(err)
 		return
 	}
 	if checkNumbers {
 		answer, err := service.Calculator.GetAnswer()
 		if err != nil {
-			log.Panic(err)
+			log.Fatal(err)
 			return
 		}
 		fmt.Println(answer)
 	} else {
-		fmt.Println("Nothing")
+		first, second, err := service.Convertor.FromArabian()
+		if err != nil {
+			log.Fatal(err)
+			return
+		}
+		service.Calculator.UpdateValues(first, second)
+		resultCalc, err := service.Calculator.GetAnswer()
+		if err != nil {
+			log.Fatal(err)
+			return
+		}
+		answer, err := service.Convertor.FromRome(resultCalc)
+		if err != nil {
+			log.Fatal(err)
+			return
+		}
+		fmt.Println(answer)
 	}
 }
